@@ -2,9 +2,14 @@ package dam.thymeleaf.demo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,6 +69,46 @@ public class MainController {
 		model.addAttribute("producto2", producto);
 
 		return "operadores";
+	}
+	@GetMapping({"/bucles"})
+	public String bucles(Model model) {
+		Set<Producto> set = new HashSet<Producto>();
+		// Obtenemos listado con varios productos
+		List<Producto> productos = Arrays.asList(
+				new Producto("Producto 1", "Descripción 1", 1.0f),
+				new Producto("Producto 2", "Descripción 2", 2.0f),
+				new Producto("Producto 3", "Descripción 3", 3.0f)
+		);
+		set.addAll(productos);
+		model.addAttribute("productos", set);
+		return "bucles";
+	}
+	@GetMapping({"/list"})
+	public String list(@RequestParam(name="iterstat", required=false, defaultValue="no") String iterstat, Model model) {
+		List<Producto> productos = Arrays.asList(
+				new Producto("Producto 1", "Descripción 1", 1.0f),
+				new Producto("Producto 2", "Descripción 2", 2.0f),
+				new Producto("Producto 3", "Descripción 3", 3.0f)
+		);
+		model.addAttribute("productos", productos);
+		if (iterstat.equalsIgnoreCase("no"))
+			return "bucles";
+		else
+			return "bucles-stat";
+	}
+	@GetMapping({"/map"})
+	public String map(Model model) {	
+		Map<Producto, Integer> map = new HashMap<Producto, Integer>();
+		List<Producto> productos = Arrays.asList(
+				new Producto("Producto 1", "Descripción 1", 1.0f),
+				new Producto("Producto 2", "Descripción 2", 2.0f),
+				new Producto("Producto 3", "Descripción 3", 3.0f)
+		);
+		for(int i=0; i < productos.size();i++) {
+			map.put(productos.get(i), i+1);
+		}
+		model.addAttribute("carrito", map);		
+		return "bucles-map";
 	}
 	/**@GetMapping({"/operadores"})
 	public String operadores(Model model) {
