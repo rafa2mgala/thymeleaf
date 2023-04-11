@@ -35,11 +35,35 @@ public class MainController {
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 		productos.add(producto);
 		model.addAttribute("lista", productos);
-		
+
 		HashMap<String,Producto> map = new HashMap<String,Producto>();
 		map.put("p4", producto);
 		model.addAttribute("map", map);
 		return "exbasicas";
+	}
+	@GetMapping({"operadores"})
+	public String operadores(Model model) {
+		// Funciona igual que en ejemplos anteriores
+		model.addAttribute("nombre", "Rafa");
+		// Tomamos la fecha y hora actual del sistema
+		model.addAttribute("today", LocalDate.now());
+		// Obtenemos la instancia de un producto
+		Producto producto = new Producto("Kingston KVR677D2N5/1G",
+				"7 MHz DDR2 Non-ECC CL5 DIMM, 240-pin", 28.34f);
+		model.addAttribute("producto", producto);
+		// Obtenemos listado con varios productos
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		productos.add(producto);
+		model.addAttribute("lista", productos);
+		// Obtenemos desde el servicio un HashMap con un producto
+		HashMap<String,Producto> map = new HashMap<String,Producto>();
+		map.put("p4", producto);
+		model.addAttribute("map", map);
+		// Obtenemos una instancia de un producto sin alguno de sus valores		
+		producto = new Producto("Otro producto", null, 1.0f);
+		model.addAttribute("producto2", producto);
+
+		return "operadores";
 	}
 	/**@GetMapping({"/operadores"})
 	public String operadores(Model model) {
