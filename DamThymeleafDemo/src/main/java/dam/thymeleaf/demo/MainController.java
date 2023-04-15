@@ -68,22 +68,9 @@ public class MainController {
 		producto = new Producto("Otro producto", null, 1.0f);
 		model.addAttribute("producto2", producto);
 
-		return "operadores";
+		return "/admin/operadores";
 	}
 	@GetMapping({"/bucles"})
-	public String bucles(Model model) {
-		Set<Producto> set = new HashSet<Producto>();
-		// Obtenemos listado con varios productos
-		List<Producto> productos = Arrays.asList(
-				new Producto("Producto 1", "Descripción 1", 1.0f),
-				new Producto("Producto 2", "Descripción 2", 2.0f),
-				new Producto("Producto 3", "Descripción 3", 3.0f)
-		);
-		set.addAll(productos);
-		model.addAttribute("productos", set);
-		return "bucles";
-	}
-	@GetMapping({"/list"})
 	public String list(@RequestParam(name="iterstat", required=false, defaultValue="no") String iterstat, Model model) {
 		List<Producto> productos = Arrays.asList(
 				new Producto("Producto 1", "Descripción 1", 1.0f),
@@ -109,6 +96,41 @@ public class MainController {
 		}
 		model.addAttribute("carrito", map);		
 		return "bucles-map";
+	}
+	@GetMapping({"/array"})
+	public String array(Model model) {
+		List<Producto> productos = Arrays.asList(
+				new Producto("Producto 1", "Descripción 1", 1.0f),
+				new Producto("Producto 2", "Descripción 2", 2.0f),
+				new Producto("Producto 3", "Descripción 3", 3.0f)
+		);
+		model.addAttribute("productos", productos.toArray());		
+		return "bucles";
+	}
+	
+	@GetMapping({"/collection"})
+	public String collection(Model model) {	
+		List<Producto> productos = Arrays.asList(
+				new Producto("Producto 1", "Descripción 1", 1.0f),
+				new Producto("Producto 2", "Descripción 2", 2.0f),
+				new Producto("Producto 3", "Descripción 3", 3.0f)
+		);
+		//se pasa el modelo la lista de productos, deriva de Collections
+		model.addAttribute("productos", productos);		
+		return "bucles";
+	}
+
+	@GetMapping({"/set"})
+	public String set(Model model) {
+		List<Producto> productos = Arrays.asList(
+				new Producto("Producto 1", "Descripción 1", 1.0f),
+				new Producto("Producto 2", "Descripción 2", 2.0f),
+				new Producto("Producto 3", "Descripción 3", 3.0f)
+		);
+		Set<Producto> set = new HashSet<Producto>();
+		set.addAll(productos);
+		model.addAttribute("productos", set);		
+		return "bucles";
 	}
 	/**@GetMapping({"/operadores"})
 	public String operadores(Model model) {

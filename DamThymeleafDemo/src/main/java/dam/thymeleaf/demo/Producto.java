@@ -62,4 +62,5 @@ public class Producto {
 	public void setPorcentajeSatisfaccion(float porcentajeSatisfaccion) {
 		this.porcentajeSatisfaccion = porcentajeSatisfaccion;
 	}
+	
 }

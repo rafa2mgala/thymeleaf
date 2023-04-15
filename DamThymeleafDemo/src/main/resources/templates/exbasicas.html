@@ -44,6 +44,10 @@
 				<ul>
 					<li><strong>Expresión variable (${today}):</strong> <span
 						th:text="${today}">variable 1</span></li>
+					<li><strong>Expresión variable (${producto}):</strong> <span
+						th:text="${producto}">ejecuta el toString() de la clase del objeto</span></li>
+					<li><strong>Expresión variable (${htmltext}):</strong> <span
+						th:utext="${htmltext}">variable 1</span></li>
 					<li><strong>Expresión variable (${nombre}):</strong> <span
 						th:text="${nombre}">variable 2</span></li>
 					<li><strong>Expresión variable (${producto.nombre}):</strong>
@@ -51,7 +55,7 @@
 					<li><strong>Expresión variable
 							(${producto['descripcion']}):</strong> <span
 						th:text="${producto['descripcion']}">variable 4</span></li>
-					<li><strong>Expresión variable (${lista[1].precio}):</strong>
+					<li><strong>Expresión variable (${lista[0].precio}):</strong>
 						<span th:text="${lista[0].precio}">variable 5</span></li>
 					<li><strong>Expresión variable (${lista.size()}):</strong> <span
 						th:text="${lista.size()}">variable 6</span></li>
