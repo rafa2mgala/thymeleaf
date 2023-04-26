@@ -1,19 +1,21 @@
-package dam.thymeleaf.simplelist.model;
+package dam.thymeleaf.model;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
-public class Product {
+public class Producto {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -29,16 +31,17 @@ public class Product {
 	
 	private String imagen;
 	
+	
 	@ManyToOne
-	private Category categoria;
+	private Categoria categoria;
 	
 	@OneToMany(mappedBy="producto", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
 	private Set<Ranking> puntuaciones = new HashSet<Ranking>();
 
-	public Product() {
+	public Producto() {
 	}
 
-	public Product(String nombre, String descripcion, float pvp, float descuento, String imagen, Category categoria) {
+	public Producto(String nombre, String descripcion, float pvp, float descuento, String imagen, Categoria categoria) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.pvp = pvp;
@@ -96,12 +99,12 @@ public class Product {
 	}
 
 
-	public Category getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
 
-	public void setCategoria(Category categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

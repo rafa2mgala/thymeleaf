@@ -1,4 +1,4 @@
-package dam.thymeleaf.simplelist.controllers;
+package dam.thymeleaf.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,21 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dam.thymeleaf.simplelist.services.CategoryService;
+import dam.thymeleaf.services.ProductService;
+
+
 
 @Controller
-@RequestMapping("/admin/categoria")
-public class CategoryController {
-	
+@RequestMapping("/admin/producto")
+public class ProductController {
+
 	@Autowired
-	private CategoryService categoriaService;
-		
+	private ProductService productService;
+
 	@GetMapping("/")
 	public String index(Model model) {
-		model.addAttribute("categorias", categoriaService.findAll());
-		return "admin/list-categoria";
+		model.addAttribute("productos", productService.findAll());
+		return "admin/list-producto";
 	}
-			
-	
+
 
 }

@@ -1,11 +1,14 @@
-package dam.thymeleaf.simplelist.model;
+package dam.thymeleaf.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class Category {
+@Table(name = "categoria")
+public class Categoria {
 	
 	@Id
 	@GeneratedValue
@@ -17,9 +20,9 @@ public class Category {
 	
 	private String imagen;
 
-	public Category() { }
+	public Categoria() { }
 
-	public Category(String nombre, boolean destacada, String imagen) {
+	public Categoria(String nombre, boolean destacada, String imagen) {
 		this.nombre = nombre;
 		this.destacada = destacada;
 		this.imagen = imagen;

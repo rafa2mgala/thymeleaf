@@ -1,4 +1,4 @@
-package dam.thymeleaf.simplelist.controllers;
+package dam.thymeleaf.controllers;
 
 import java.util.List;
 
@@ -7,25 +7,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import dam.thymeleaf.simplelist.model.Product;
-import dam.thymeleaf.simplelist.services.CategoryService;
-import dam.thymeleaf.simplelist.services.ProductService;
+import dam.thymeleaf.model.Producto;
+import dam.thymeleaf.services.CategoryService;
+import dam.thymeleaf.services.ProductService;
+
 
 @Controller
 public class MainController {
 	private final int PRODUCTOS_ALEATORIOS=8;
 	
 	@Autowired
-	private CategoryService categoriaService;
+	private CategoryService categoryService;
 
 	@Autowired
-	private ProductService productoService;
+	private ProductService productService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
-		model.addAttribute("categorias", categoriaService.findAll());
+		model.addAttribute("categorias", categoryService.findAll());
 
-		List<Product> productos = productoService.obtenerProductosAleatorios(PRODUCTOS_ALEATORIOS);
+		List<Producto> productos = productService.obtenerProductosAleatorios(PRODUCTOS_ALEATORIOS);
 
 		model.addAttribute("productos", productos);
 
