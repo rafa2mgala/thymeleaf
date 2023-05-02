@@ -7,6 +7,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title></title>
 
+
 <!-- Bootstrap -->
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -41,85 +42,73 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Opciones <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="admin/list-categoria.html"
+							<li><a href="/admin/categoria/"
 								th:href="@{/admin/categoria/}">Gestión de categorías</a></li>
-							<li><a href="admin/list-producto.html"
-								th:href="@{/admin/producto/}">Gestión de productos</a></li>
+							<li><a href="/admin/producto/" th:href="@{/admin/producto/}">Gestión
+									de productos</a></li>
 						</ul></li>
 				</ul>				
 			</div>
+
 		</div>
 	</nav>
 
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<h3>Categorías</h3>
-				<ul class="nav nav-sidebar">
-					<li th:each="categoria : ${categorias}">
-					<a href="#"
-						th:href="@{/(idCategoria=${categoria.id})}"
-						th:text="${categoria.nombre}">categoria</a></li>
-				</ul>
+			<div class="col-md-4">
+				<img src="http://placehold.it/400x400" alt=""
+					th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/350x260' : ${producto.imagen}"
+					class="img-responsive" />
 			</div>
-
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h1>Openwebinars.net Shop</h1>
-				<div class="row">
-					<div class="col-sm-3" th:each="producto : ${productos}">						
-						<a href="#" th:href="@{/producto/{id}(id=${producto.id})}">
-							<div class="col-item">
-								<div class="photo">
-									<img src="http://placehold.it/350x260"
-										th:src="${#strings.isEmpty(producto.imagen)} ? 'http://placehold.it/350x260' : ${producto.imagen}"
-										class="img-responsive" alt="a" />
-								</div>
-								<div class="info">
-									<div class="row">
-										<div class="price col-md-12">
-											<h5 th:text="${#strings.abbreviate(producto.nombre,65)}">Nombre</h5>
-											<div class="price-text-color">
-												<span
-													th:text="${producto.descuento == 0} 
-																? ${#numbers.formatCurrency(producto.pvp)} 
-																: ${#numbers.formatCurrency(producto.pvp * (1 - producto.descuento))}">10</span>
-	
-												<th:block th:if="${producto.descuento > 0}">
-													<span class="price-original"
-														th:text="${#numbers.formatCurrency(producto.pvp)}">12,00€</span>
-													<span class="label label-danger"
-														th:text=${#numbers.formatPercent(producto.descuento,1,0)}>1%</span>
-												</th:block>
-											</div>
-										</div>
-										<div class="row">
-											<div class="rating col-md-4">
-												<p>
-													<span
-														th:text="${#numbers.formatDecimal(producto.getPuntuacionMedia(),1,1)}">4</span>/5
-												</p>
-											</div>
-											<div class="rating col-md-8">
-												<span class="glyphicon glyphicon-star"></span>
-											</div>
-										</div>
-									</div>
-								</div>
+			<div class="col-md-8">
+				<h1 class="product-name" th:text=${producto.nombre}>Nombre del
+					producto</h1>
+				<div class="product-price">
+					<div class="row">
+						<div class=col-md-4>
+							<span class="pvp"
+								th:text="${producto.descuento == 0} ? ${#numbers.formatCurrency(producto.pvp)} : ${#numbers.formatCurrency(producto.pvp * (1 - producto.descuento))}">100€</span>
+						</div>
+						<th:block th:if="${producto.descuento > 0}">
+							<div class="col-md-3 pvp-no-discounted">
+								<span th:text="${#numbers.formatCurrency(producto.pvp)}">120€</span>
 							</div>
-						</a>
+							<div class="col-md-3 discount">
+								<span class="label-discount">Descuento </span> <span
+									class="label label-danger"
+									th:text=${#numbers.formatPercent(producto.descuento,1,0)}>12%</span>
+							</div>
+						</th:block>
 					</div>
 				</div>
+				<div class="row">
+					<div class="detail-rating col-md-4">
+						<span th:each="i:${#numbers.sequence(1,5)}" class="glyphicon"
+							th:classappend="${i <= producto.getPuntuacionMedia()} ? 'glyphicon-star': 'glyphicon-star-empty'"></span>
+					</div>
 
+					<div class="detail-rating col-md-4">
+						<p>
+							<span
+								th:text="${#numbers.formatDecimal(producto.getPuntuacionMedia(),1,1)}">4</span>/5
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
-
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Características</h3>
+				<p th:text="${producto.descripcion}">Descripción</p>
+			</div>
+		</div>
 	</div>
-
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -1,18 +1,20 @@
-package dam.thymeleaf.simplelist.model;
+package dam.thymeleaf.model;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
-public class Ranking {
-	@Id
-	@GeneratedValue
+public class Ranking{
+	@Id	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@CreatedDate
@@ -21,18 +23,18 @@ public class Ranking {
 	private int puntuacion;
 	
 	@ManyToOne
-	private Product producto;
+	private Producto producto;
 
 	public Ranking() {
 	}
 	
-	public Ranking(int puntuacion) {
+	public Ranking(int puntuacion) {		
 		this.puntuacion = puntuacion;
 	}
 	
-	public Ranking(int puntuacion, Product producto) {
+	public Ranking(int puntuacion, Producto product) {
 		this.puntuacion = puntuacion;
-		this.producto = producto;
+		this.producto = product;
 	}
 
 	public Long getId() {
@@ -59,12 +61,12 @@ public class Ranking {
 		this.puntuacion = puntuacion;
 	}
 
-	public Product getProducto() {
+	public Producto getProduct() {
 		return producto;
 	}
 
-	public void setProducto(Product producto) {
-		this.producto = producto;
+	public void setProducto(Producto product) {
+		this.producto = product;
 	}
 	
 }

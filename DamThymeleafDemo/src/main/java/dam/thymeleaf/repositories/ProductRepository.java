@@ -9,7 +9,7 @@ import dam.thymeleaf.model.Categoria;
 import dam.thymeleaf.model.Producto;
 
 public interface ProductRepository extends JpaRepository<Producto, Long> {
-	
+	public final int PRODUCTOS_ALEATORIOS=8;
 	public List<Producto> findByCategoria(Categoria categoria);
 	
 	@Query("select p.id from Producto p")
