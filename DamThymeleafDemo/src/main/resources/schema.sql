@@ -1,11 +1,13 @@
-drop table category if exists;
-drop table product if exists;
-drop table ranking if exists;
-drop sequence if exists hibernate_sequence;
 
+
+drop table ranking if exists;
+drop table producto if exists;
+drop table categoria if exists;
+drop sequence if exists hibernate_sequence;
 create sequence hibernate_sequence start with 100 increment by 1;
 
-create table category (
+
+create table categoria (
 	id bigint not null, 
 	destacada boolean not null, 
 	imagen varchar(512), 
@@ -13,9 +15,9 @@ create table category (
 	primary key (id)
 );
 
-create table product (
+create table producto (
 	id bigint not null, 
-	descripcion clob, 
+	descripcion blob, 
 	descuento float not null, 
 	imagen varchar(512), 
 	nombre varchar(512), 
@@ -25,12 +27,12 @@ create table product (
 );
 
 create table ranking (
-	id bigint not null, 
+	id bigint not null auto_increment, 
 	fecha timestamp, 
 	puntuacion integer not null, 
 	producto_id bigint, 
 	primary key (id)
 );
 
-alter table product add constraint fk_producto_categoria foreign key (categoria_id) references category;
-alter table ranking add constraint fk_puntuacion_producto foreign key (producto_id) references product;
+alter table producto add constraint fk_producto_categoria foreign key (categoria_id) references categoria;
+alter table ranking add constraint fk_puntuacion_producto foreign key (producto_id) references producto;
